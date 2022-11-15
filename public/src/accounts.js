@@ -21,22 +21,25 @@ function findAccountById(accounts, id) {
   return accounts;
  }
  
- //This function takes in an account object and an array of all books objects
- //This function will need to return a number that represents the number of times the account ID appears in any books borrow array.
- //I need to loop through the books array and then loop through the borrow array in order to check if the borrows id matches the account id; if this is true, I need to add 1 to the counter variable totalBorrows.
- //The two loops will continue until the end of books array.
- //When the loop is complete return the value stored in the totalBorrows variable.
- function getTotalNumberOfBorrows(account, books) {
-  let totalBorrows = 0;
-  for (let i = 0; i < books.length; i++) {
-   for (let j = 0; j < books[i].borrows.length; j++) {
-    if (account.id === books[i].borrows[j].id) {
-     totalBorrows += 1;
-    }
-   }
-  }
-  return totalBorrows;
- }
+ // function that returns a _number_ representing the number of times the account's ID appears in any book's `borrows` array. 
+function getTotalNumberOfBorrows(account, books) {
+  // create a variable for the id in account using destructuring
+    const {
+        id: accountId
+    } = account;
+  // use the reduce method on books, to accumulate total bumber of borrows.
+    return books.reduce((accumulator, book) => {
+  // callback function
+      return (
+            accumulator +
+            book.borrows
+  // use filter method to create a new array that only includes borrows that have the same id as the account id 
+            .filter(borrow => borrow.id === accountId)
+  // use the reduce method to add 1 for each item in the filtered array?
+            .reduce((accumulatorBorrows, borrow) => accumulatorBorrows + 1, 0)
+        );
+    }, 0);
+}
  
  //Declare a variable that will store the value of the final result in an empty array.
  //Declare a variable that will store the value of the matching borrow object.
