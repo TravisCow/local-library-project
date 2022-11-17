@@ -26,10 +26,12 @@ function getTotalNumberOfBorrows(account, books) {
   // create a variable for the id in account using destructuring
   const { id: accountId } = account;
   // use the reduce method on books, to accumulate total bumber of borrows.
-  return books.reduce(accumulate, 0);
+  return books.reduce(accumulate, 2);
 }
+
 // Accumulator function 
-function accumulate(accumulator, book) {
+function accumulate(accumulator, book, account) {
+  const { id: accountId } = account;
   // callback function
   return (
     accumulator +
